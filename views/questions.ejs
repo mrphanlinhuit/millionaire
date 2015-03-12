@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Management</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-dialog.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-table.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+        body {
+            background-color: #C3C8D0;
+        }
+        .container{
+            background: #79B4E5;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="container">
+    <!--main navigation-->
+    <div class="row">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar-content">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="mynavbar-content">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    </a></li>
+                    <li><a href="/questions">Questions</a></li>
+                    <li><a href="/rank">Rank</a></li>
+                    <li><a href="/signOut"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--main content-->
+    <div class="row col-xs-12 col-sm-12 col-md-12">
+        <div id="toolbar" class="btn-group">
+            <button type="button" id="addQuestion" class="btn btn-default">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+            <button type="button" id="deleteMultiQuestion" class="btn btn-default">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+            <button type="button" id="export" class="btn btn-default">
+                <a href="/exportQuestions">
+                <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                </a>
+            </button>
+            <button type="button" id="import" class="btn btn-default">
+                <i class="glyphicon glyphicon-circle-arrow-up"></i>
+            </button>
+
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-url="Questions"
+               data-method="post"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-page-list="[5, 10, 20, 50, 100, 200]"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-toolbar="#toolbar">
+            <thead>
+            <tr>
+                <th data-field="state" data-checkbox="true"></th>
+                <th data-field="_id" data-align="right" data-sortable="true">ID</th>
+                <th data-field="question" data-align="right" data-sortable="true">Question</th>
+                <th data-field="A" data-align="center" data-sortable="true">A</th>
+                <th data-field="B" data-align="center" data-sortable="true">B</th>
+                <th data-field="C" data-align="center" data-sortable="true">C</th>
+                <th data-field="D" data-align="center" data-sortable="true">D</th>
+                <th data-field="correct" data-align="center" data-sortable="true">Correct Answer</th>
+                <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script src="/js/jquery-1.11.2.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-dialog.min.js"></script>
+<script src="/js/bootstrap-table.min.js"></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src="/js/locateNav.js"></script>
+<script>
+
+    $('#addQuestion').click(function (e) {
+        showAddModel();
+    });
+
+    $('#deleteMultiQuestion').click(function (e) {
+        BootstrapDialog.confirm({
+            title: 'Confirm',
+            message: 'are you sure, you want to delete the questions',
+            type: BootstrapDialog.TYPE_PRIMARY, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            btnCancelLabel: 'Nope', // <-- Default value is 'Cancel',
+            btnOKLabel: 'Yep!', // <-- Default value is 'OK',
+            btnOKClass: 'btn-primary', // <-- If you didn't specify it, dialog type will be used,
+            callback: function (result) {
+                if (result) {
+                    deleteQuestion();
+                } else {
+                }
+            }
+        });
+
+    });
+
+//    $('#export').click(function (e) {
+//        alert('export');
+//        $.get('/exportQuestions',{
+//
+//        },
+//        function (data, status) {
+//            switch (status){
+//                case 'success':
+//                        console.log('database is saved to file on server.');
+//                    break;
+//                default :
+//                    break;
+//            }
+//        });
+//    });
+
+    $('#import').click(function (e) {
+        var textType = /text.*/;
+        var fileDialog = document.createElement('input');
+        fileDialog.setAttribute('type', 'file');
+        fileDialog.click();
+        fileDialog.addEventListener('change', function(e){
+            var file = fileDialog.files[0];
+            if(file.type.match(textType)){
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var jsonText = JSON.parse(reader.result);
+                    var data = [];
+                    for(var i=0; i<jsonText.length; i++){
+                        data[i] = {};
+                        data[i].Q = jsonText[i].question;
+                        data[i].A = jsonText[i].A;
+                        data[i].B = jsonText[i].B;
+                        data[i].C = jsonText[i].C;
+                        data[i].D = jsonText[i].D;
+                        data[i].correct = jsonText[i].correct;
+                    }
+                    data = JSON.stringify(data);
+                    $.post('/importQuestions',{
+                        data: data
+                    }, function (data, status) {
+                        switch (status){
+                            case 'success':
+                                alert('ok');
+                                    $('#table').bootstrapTable('refresh');
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    console.log(data);
+                }
+                reader.readAsText(file);
+            }else{
+                alert('File not supported!');
+            }
+        });
+    });
+
+    function deleteQuestion(){
+        var selected = [];
+        if(arguments.length === 3){//remove icon was clicked
+            selected[0] = arguments[1]._id;
+        }else{//get all selected rows.
+            selected = $('#table').bootstrapTable('getSelections');
+            if(selected.length > 0) {
+                for (var i = 0; i < selected.length; i++) {
+                    selected[i] = selected[i]._id;
+                }
+            }
+        }
+        if(selected.length > 0){
+            console.log('selections: ', selected);
+            $.post('/deleteQuestion',{
+                selections: selected
+            }, function(data, status){
+                switch (status){
+                    case 'success':
+                        alert('success');
+                        $('#table').bootstrapTable('remove', {
+                            field: '_id',
+                            values: selected
+                        });
+                        $('#table').bootstrapTable('refresh');
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    }
+
+    function actionFormatter(value, row, index) {
+        return [
+            '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>',
+            '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+
+    window.actionEvents = {
+        'click .edit': function (e, value, row, index) {
+            showUpdateModel(value, row, index);
+            console.log(value, row, index);
+        },
+        'click .remove': function (e, value, row, index) {
+            deleteQuestion(value, row, index);
+            console.log(value, row, index);
+        }
+    };
+
+    function showUpdateModel(value, row, index){
+        var model =
+                '<form>'+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">ID</label>'+
+                    '<input name="id" type="text" class="form-control" readonly value="'+row._id+'">'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">Question</label>'+
+                    '<textarea class="form-control" name="question" rows="10" cols="50">'+row.question+'</textarea>'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">A</label>'+
+                    '<input type="text" name="A" class="form-control" value="'+row.A+'">'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">B</label>'+
+                    '<input type="text" name="B" class="form-control" value="'+row.B+'">'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">C</label>'+
+                    '<input type="text" name="C" class="form-control" value="'+row.C+'">'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">D</label>'+
+                    '<input type="text" name="D" class="form-control" value="'+row.D+'">'+
+                    '</div>'+
+
+                    '<div class="form-group">'+
+                    '<label for="recipient-name" class="control-label">Correct</label>'+
+                    '<input type="text" name="correct" class="form-control" value="'+row.correct+'">'+
+                    '</div>'+
+                '</form>';
+        BootstrapDialog.show({
+            message: model,
+            onhide: function(dialogRef){
+//                var fruit = dialogRef.getModalBody().find('input').val();
+//                if($.trim(fruit.toLowerCase()) !== 'banana') {
+//                    alert('Need banana!');
+//                    return false;
+//                }
+            },
+            buttons: [{
+                label: 'Update',
+                icon: 'glyphicon glyphicon-check',
+                cssClass: 'btn-primary',
+                action: function (dialogRef) {
+                    var form = $('.modal form');
+                    var id = form.find('input[name="id"]').val();
+                    var question = form.find('textarea[name="question"]').val();
+                    var A = form.find('input[name="A"]').val();
+                    var B = form.find('input[name="B"]').val();
+                    var C = form.find('input[name="C"]').val();
+                    var D = form.find('input[name="D"]').val();
+                    var correct = form.find('input[name="correct"]').val();
+                    $.post('/updateQuestion',{
+                                id: id,
+                                Q: question,
+                                A: A,
+                                B: B,
+                                C: C,
+                                D: D,
+                                correct: correct
+                            }, function(data, status){
+                                switch (status){
+                                    case 'success':
+                                            $('#table').bootstrapTable('updateRow', {
+                                                index: index,
+                                                row: data
+                                            });
+                                        break;
+                                    default :
+                                        $('#warning').text('unkown status');
+                                        break;
+                                }
+                            }
+                    );
+                    dialogRef.close();
+                }
+            },{
+                label: 'Close',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    }
+    function showAddModel(){
+        var model =
+                '<form>'+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">Question</label>'+
+                '<textarea class="form-control" name="question" rows="10" cols="50"></textarea>'+
+                '</div>'+
+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">A</label>'+
+                '<input type="text" name="A" class="form-control" value="">'+
+                '</div>'+
+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">B</label>'+
+                '<input type="text" name="B" class="form-control" value="">'+
+                '</div>'+
+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">C</label>'+
+                '<input type="text" name="C" class="form-control" value="">'+
+                '</div>'+
+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">D</label>'+
+                '<input type="text" name="D" class="form-control" value="">'+
+                '</div>'+
+
+                '<div class="form-group">'+
+                '<label for="recipient-name" class="control-label">Correct</label>'+
+                '<select class="form-control" name="correct">'+
+                    '<option>Correct Answer</option>'+
+                    '<option>A</option>'+
+                    '<option>B</option>'+
+                    '<option>C</option>'+
+                    '<option>D</option>'+
+                '</select>'+
+                '</div>'+
+                '</form>';
+        BootstrapDialog.show({
+            message: model,
+            onhide: function(dialogRef){
+//                var fruit = dialogRef.getModalBody().find('input').val();
+//                if($.trim(fruit.toLowerCase()) !== 'banana') {
+//                    alert('Need banana!');
+//                    return false;
+//                }
+            },
+            buttons: [{
+                label: 'Add New Question',
+                icon: 'glyphicon glyphicon-check',
+                cssClass: 'btn-primary',
+                action: function (dialogRef) {
+                    var form = $('.modal form');
+                    var question = form.find('textarea[name="question"]').val().trim();
+                    var A = form.find('input[name="A"]').val().trim();
+                    var B = form.find('input[name="B"]').val().trim();
+                    var C = form.find('input[name="C"]').val().trim();
+                    var D = form.find('input[name="D"]').val().trim();
+                    var correct = form.find('select[name="correct"]').val().trim();
+                    $.post('/addQuestion',{
+                                Q: question,
+                                A: A,
+                                B: B,
+                                C: C,
+                                D: D,
+                                correct: correct
+                            }, function(data, status){
+                                switch (status){
+                                    case 'success':
+                                            console.log('$$$$ data: ',data);
+                                            $('#table').bootstrapTable('insertRow',{
+                                                index: 0,
+                                                row: data
+                                            });
+                                        break;
+                                    default :
+                                        $('#warning').text('unkown status');
+                                        break;
+                                }
+                            }
+                    );
+                    dialogRef.close();
+                }
+            },{
+                label: 'Close',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    }
+</script>
+</body>
+</html>

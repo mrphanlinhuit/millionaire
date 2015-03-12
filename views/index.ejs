@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Who want to be a millionaire</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-dialog.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<!-- Body content goes here -->
+<div class="container">
+    <div class="row">
+        <!--header-->
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar-content">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=""><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="mynavbar-content">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">High Scrore<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#getRankDay">Day</a></li>
+                            <li><a href="#">Week</a></li>
+                            <li><a href="#getRankMonth">Moth</a></li>
+                            <li><a href="#getRankYear">Year</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12  col-sm-8 col-md-8">
+            <div class="row" id="mainContain">
+                <div id="help" class="btn-group">
+                    <button class="btn btn-default" id="helpFifty" value="helpFifty">
+                        <i class="glyphicon">50:50</i>
+                    </button>
+                    <button class="btn btn-default" id="helpPhone" value="helpPhone">
+                        <i class="glyphicon glyphicon-earphone"></i>
+                    </button>
+                    <button class="btn btn-default" id="helpAudience" value="helpAudience">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </button>
+                    <button class="btn btn-default" id="refresh" value="refresh">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </button>
+                    <button class="btn btn-default" id="stop" value="stop">
+                        <i class="glyphicon glyphicon-stop"></i>
+                    </button>
+                </div>
+                <div id="questionAndAnswer">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <p id="question">
+                            Nước nào có diên tích lớn nhất thế giới
+                            Nước nào có diên tích lớn nhất thế giới
+                            Nước nào có diên tích lớn nhất thế giới
+                            Nước nào có diên tích lớn nhất thế giới
+                            Nước nào có diên tích lớn nhất thế giới
+                            Nước nào có diên tích lớn nhất thế giới
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <button class="btn btn-custom" id="A" value="A">A. Việt Nam</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <button class="btn btn-custom" id="B" value="B">B. Lào</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <button class="btn btn-custom" id="C" value="C">C. Tung Của</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <button class="btn btn-custom" id="D" value="D">D. Nga</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4" id="priceChart">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading white">15 - 120.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">14 - 85.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">13 - 60.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">12 - 40.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">11 - 30.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading white">10 - 22.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">9 - 14.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">8 - 10.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">7 - 6.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">6 - 3.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading white">5 - 2.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">4 - 1.000&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">3 - 600&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">2 - 400&#36</h4>
+                </li>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">1 - 200&#36</h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="js/jquery-1.11.2.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-dialog.min.js"></script>
+<script src="js/bootstrap-table.min.js"></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src="js/canvas.min.js"></script>
+
+<script>
+    var socket = io.connect();
+    var questions = [];//15 questions
+    var currentQuestion = 0;
+    var audio = new Audio();
+    var audienceHelpAudio = new Audio();
+    var wrongAudio = new Audio();
+    var fiftyHelpAudio = new Audio();
+    var soundEffects = {
+        start: '/sounds/start.mp3',
+        success1_4:'/sounds/correct_1-4.mp3',
+        inSuccess1_5: '/sounds/incorrect_1-5.mp3',
+        askAudience: '/sounds/ask_the_audience.mp3',
+        help: '/sounds/help.mp3'
+    };
+    var soundEffectEnded = false;
+    var fail = false;
+    var Q = $('#question');
+    var A = $('#A');
+    var B = $('#B');
+    var C = $('#C');
+    var D = $('#D');
+
+    //dissable all of buttons
+    A.attr('disabled', 'disabled');
+    B.attr('disabled', 'disabled');
+    C.attr('disabled', 'disabled');
+    D.attr('disabled', 'disabled');
+
+
+    $(document).ready(function(){
+        socket.on('news', function(data){
+            if(questions.length !== 15){
+                socket.emit('getQuestions');
+            }
+        });
+
+        socket.on('getQuestions', function(data){
+            console.log('questions: ', data);
+            questions = data;
+            start();
+        });
+
+        socket.on('correct', function(data){
+            currentQuestion ++;
+            audio.setAttribute('src', soundEffects.success1_4);
+            audio.play();
+            $('.yellow').removeClass('yellow').addClass('green');
+
+            if(currentQuestion < 14){
+                audio.addEventListener('ended', function(){
+                    nextQuestion();
+                });
+            }else{
+                alert('you\'re an millionaire');
+            }
+        });
+
+        socket.on('incorrect', function(data){
+            wrongAudio.setAttribute('src', soundEffects.inSuccess1_5);
+            wrongAudio.play();
+            $('.yellow').removeClass('yellow').addClass('red');
+        });
+
+        socket.on('help', function(data){
+            switch (data.type){
+                case 'helpFifty':
+//                        fiftyHelpAudio.setAttribute('src', soundEffects.help)
+//                        fiftyHelpAudio.play();
+//                        fiftyHelpAudio.addEventListener('ended', function () {
+//                            alert('fifty');
+//
+//                        });
+                    $('#questionAndAnswer button#'+data.incorrect1).html('*****');
+                    $('#questionAndAnswer button#'+data.incorrect1).attr('disabled', 'disabled');
+                    $('#questionAndAnswer button#'+data.incorrect1).addClass('btn-danger');
+                    $('#questionAndAnswer button#'+data.incorrect2).html('*****');
+                    $('#questionAndAnswer button#'+data.incorrect2).attr('disabled', 'disabled');
+                    $('#questionAndAnswer button#'+data.incorrect2).addClass('btn-danger');
+
+                    $('#helpFifty i').html('');
+                    $('#helpFifty i').addClass('glyphicon-remove');
+                    $('#helpFifty').attr('disabled', 'disabled');
+                    break;
+
+                case 'helpPhone':
+                    break;
+
+                case 'helpAudience':
+                        var timeOut = setInterval(function(){
+                            if(soundEffectEnded){
+                                percents = [];
+                                percents[0] = 'A, '+ data.A;
+                                percents[1] = 'B, '+ data.B;
+                                percents[2] = 'C, '+ data.C;
+                                percents[3] = 'D, '+ data.D;
+                                barChart();
+                                BootstrapDialog.setTitle('Got the data successfully');
+                                clearInterval(timeOut);
+                            }
+                            console.log('setInterval');
+                        }, 1000);
+
+
+                        $('#helpAudience i').addClass('glyphicon-remove');
+                        $('#helpAudience').attr('disabled', 'disabled');
+                        console.log(data);
+                    break;
+
+                default :
+                        alert(data);
+                    break;
+            }
+
+        });
+
+        socket.on('saveGrade',function(data){
+            if(data === 'ok')
+            alert('your grade just saved');
+        });
+
+        $('#questionAndAnswer button').click(function() {
+            var btnClicked = $(this);
+            var ans = $(this).val();
+            var mes = 'are your final answer is ' + ans + '?';
+            btnClicked.addClass('yellow');
+            BootstrapDialog.confirm({
+                title: 'Confirm',
+                message: mes,
+                type: BootstrapDialog.TYPE_PRIMARY, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                closable: true, // <-- Default value is false
+                draggable: true, // <-- Default value is false
+                btnCancelLabel: 'Nope', // <-- Default value is 'Cancel',
+                btnOKLabel: 'Yep!', // <-- Default value is 'OK',
+                btnOKClass: 'btn-primary', // <-- If you didn't specify it, dialog type will be used,
+                callback: function (result) {
+                    if (result) {
+
+                        var data = {
+                            id: questions[currentQuestion]._id,
+                            ans: ans
+                        }
+                        socket.emit('answer', data);
+                    } else {
+                        btnClicked.removeClass('yellow');
+                    }
+                }
+            });
+        });
+
+
+        $('.dropdown-menu a').click(function (e) {
+            switch ($(this).attr('href')){
+                case '#getRankYear':
+                    $.post('getRankYear',{
+                    }, function (data, status) {
+                        switch (status){
+                            case 'success':
+                                BootstrapDialog.show({
+                                    message: '<table id="tableRank">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th data-field="name">Name</th>'+
+                                                        '<th data-field="grade">Grade</th>'+
+                                                        '<th data-field="date">Date</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                            '</table>',
+                                    buttons: [{
+                                        label: 'Show',
+                                        cssClass: 'btn-primary',
+                                        action: function (dialogRef) {
+                                            $('#tableRank').bootstrapTable({
+                                                data: data
+                                            });
+                                            $('#tableRank').bootstrapTable('hideLoading');
+                                        }
+                                    },{
+                                        label: 'Close',
+                                        action: function(dialogRef) {
+                                            dialogRef.close();
+                                        }
+                                    }]
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    break;
+                case '#getRankMonth':
+                    $.post('getRankMonth',{
+                    }, function (data, status) {
+                        switch (status){
+                            case 'success':
+                                BootstrapDialog.show({
+                                    message: '<table id="tableRank">'+
+                                            '<thead>'+
+                                            '<tr>'+
+                                            '<th data-field="name">Name</th>'+
+                                            '<th data-field="grade">Grade</th>'+
+                                            '<th data-field="date">Date</th>'+
+                                            '</tr>'+
+                                            '</thead>'+
+                                            '</table>',
+                                    buttons: [{
+                                        label: 'Show',
+                                        cssClass: 'btn-primary',
+                                        action: function (dialogRef) {
+                                            $('#tableRank').bootstrapTable({
+                                                data: data
+                                            });
+                                            $('#tableRank').bootstrapTable('hideLoading');
+                                        }
+                                    },{
+                                        label: 'Close',
+                                        action: function(dialogRef) {
+                                            dialogRef.close();
+                                        }
+                                    }]
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    break;
+
+                case '#getRankDay':
+                    $.post('getRankDay',{
+                    }, function (data, status) {
+                        switch (status){
+                            case 'success':
+                                BootstrapDialog.show({
+                                    message: '<table id="tableRank">'+
+                                            '<thead>'+
+                                            '<tr>'+
+                                            '<th data-field="name">Name</th>'+
+                                            '<th data-field="grade">Grade</th>'+
+                                            '<th data-field="date">Date</th>'+
+                                            '</tr>'+
+                                            '</thead>'+
+                                            '</table>',
+                                    buttons: [{
+                                        label: 'Show',
+                                        cssClass: 'btn-primary',
+                                        action: function (dialogRef) {
+                                            $('#tableRank').bootstrapTable({
+                                                data: data
+                                            });
+                                            $('#tableRank').bootstrapTable('hideLoading');
+                                        }
+                                    },{
+                                        label: 'Close',
+                                        action: function(dialogRef) {
+                                            dialogRef.close();
+                                        }
+                                    }]
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    break;
+
+                default:
+                    break;
+            }
+            e.preventDefault();
+        });
+
+        $('#help button').click(function(e){
+            switch ($(this).val()){
+                case 'helpFifty':
+                    socket.emit('help', 'helpFifty');
+                    break;
+                case 'helpPhone':
+                        alert('phone');
+                    break;
+                case 'helpAudience':
+                        audienceHelpAudio.setAttribute('src',soundEffects.askAudience );
+                        audienceHelpAudio.play();
+                        BootstrapDialog.show({
+                            title: 'we\'re getting data from the server, please waitting',
+                            message: $('<canvas id="bchart" height="400" width="400" align="center">Your browser does not support HTML5 Canvas </canvas>'),
+                            buttons: [{
+                                label: 'Ok',
+                                icon: 'glyphicon glyphicon-ok',
+                                cssClass: 'btn-primary',
+                                action: function(dialog){
+                                    dialog.close();
+                                }
+                            }]});
+                        audienceHelpAudio.addEventListener('ended', function () {
+                            soundEffectEnded = true;
+                        });
+                        socket.emit('help', 'helpAudience');
+                    break;
+
+                case 'refresh':
+                        fail = true;
+                        playAgain();
+                    break;
+
+                case 'stop':
+                    wrongAudio.setAttribute('src', soundEffects.inSuccess1_5);
+                    wrongAudio.play();
+                    break;
+
+                default :
+                    break;
+            }
+        });
+    });
+
+    function start(){
+        audio.setAttribute('src', soundEffects.start);
+        audio.play();
+        var fail = false;
+        var questions = [];//15 questions
+        var currentQuestion = 0;
+        var soundEffectEnded = false;
+        audio.addEventListener('ended', function(){
+            A.removeAttr('disabled');
+            B.removeAttr('disabled');
+            C.removeAttr('disabled');
+            D.removeAttr('disabled');
+        });
+        nextQuestion();
+    }
+
+    function nextQuestion(){
+        $('.green').removeClass('green');
+        $('.list-group .pass').removeClass('pass');
+        $('.list-group li').eq(14-currentQuestion).addClass('pass');
+        var question = questions[currentQuestion];
+        Q.text(question.question);
+        A.text('A. '+ question.A);
+        B.text('B. ' +question.B);
+        C.text('C. ' +question.C);
+        D.text('D. ' +question.D);
+    }
+
+    function playAgain(){
+        var questions = [];//15 questions
+        var currentQuestion = 0;
+        var soundEffectEnded = false;
+        $('.red').removeClass('red');
+        //dissable all of buttons
+        A.attr('disabled', 'disabled');
+        B.attr('disabled', 'disabled');
+        C.attr('disabled', 'disabled');
+        D.attr('disabled', 'disabled');
+
+        if(fail){
+            socket.emit('getQuestions');
+        }
+    }
+
+    wrongAudio.addEventListener('ended', function(){
+        fail = true;
+        $('#questionAndAnswer button').attr('disabled','disabled');
+        BootstrapDialog.show({
+            title: 'Are you wanna save your grade and play again',
+            message: $('<textarea class="form-control" id="playerName" placeholder="Input your name here..."></textarea>'),
+            buttons: [{
+                label: 'Save',
+                cssClass: 'btn-primary',
+                hotkey: 13, // Enter.
+                action: function(dialog) {
+                    var playerName = $('#playerName').val();
+                    socket.emit('saveGrade', {
+                        name: playerName,
+                        grade: currentQuestion
+                    });
+                    fail = true;
+                    dialog.close();
+                    playAgain();
+                }
+            },{
+                label: 'Cancel',
+                cssClass: 'btn-default',
+                action: function(dialog){
+                    dialog.close();
+                }
+            }]
+        });
+    });
+
+</script>
+</body>
+</html>

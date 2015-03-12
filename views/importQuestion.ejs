@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Management</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="container">
+    <div class="row col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <form action="/import" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Question</label>
+                <textarea class="form-control" rows="3" name="Q" value="question" placeholder="Enter the question"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">A</label>
+                <input type="text" class="form-control" name="A" value="a" placeholder="Enter the answer A">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">B</label>
+                <input type="text" class="form-control" name="B" value="b" placeholder="Enter the answer B">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">C</label>
+                <input type="text" class="form-control" name="C" value="c" placeholder="Enter the answer C">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">D</label>
+                <input type="text" class="form-control" name="D" value="d" placeholder="Enter the answer D">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Correct Answer</label>
+                <select class="form-control" name="correct">
+                    <option>Correct Answer</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!--<form action="/import" method="post">-->
+    <!--Question: <input type="text" name="Q" value="question"/><br/>-->
+    <!--A: <input type="text" name="A" value="a"/><br/>-->
+    <!--B: <input type="text" name="B" value="b"/><br/>-->
+    <!--C: <input type="text" name="C" value="c"/><br/>-->
+    <!--D: <input type="text" name="D" value="d"/><br/>-->
+    <!--Correct: <input type="text" name="correct" value="A"/>-->
+    <!--<input type="submit" value="submit"/>-->
+
+<!--</form>-->
+
+<script src="js/jquery-1.11.2.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-dialog.min.js"></script>
+<script src='/socket.io/socket.io.js'></script>
+</body>
+</html>

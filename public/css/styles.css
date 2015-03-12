@@ -1,0 +1,146 @@
+body{background-color: #74A0EC}
+.container{
+    background: url("../imgs/milioniare.jpg") no-repeat;
+    border-radius: 4px;
+    min-height: 738px;
+}
+
+#mainContain{
+    position: relative;
+    min-height: 684px;
+}
+
+#help{
+    position: absolute;
+    right: 10px;
+    top: 40px;
+}
+
+#questionAndAnswer{
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+}
+#priceChart li{
+    background-color: #74A0EC;
+    opacity: 0.6;
+}
+
+#priceChart h4{
+    font-size: 17px;
+    color: #ffff00;
+}
+
+#priceChart .white{
+    color: #ffffff;
+}
+
+#priceChart .pass{background-color: green;}
+
+.btn-custom, #question {
+    margin: 8px 0;
+    background-color: #08c;
+    border-color: #08c;
+    width: 100%;
+    opacity: .9;
+    color: #ffffff;
+}
+
+#question{
+    border-radius: 5px;
+    padding: 6px 20px;
+    text-align: center;
+}
+
+.btn-custom:hover{
+    background-color: #ffff00;
+    border-color: #006699;
+}
+
+.btn-custom:active,
+.btn-custom .active {
+    background-color: green;
+    border-color: #006699;
+}
+.btn-custom.disabled:hover,
+.btn-custom.disabled:focus,
+.btn-custom.disabled:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled]:hover,
+.btn-custom[disabled]:focus,
+.btn-custom[disabled]:active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom:hover,
+fieldset[disabled] .btn-custom:focus,
+fieldset[disabled] .btn-custom:active,
+fieldset[disabled] .btn-custom.active {
+    background-color: #08c;
+    border-color: #08c;
+}
+
+.green{background-color: green;}
+.red{background-color: red;}
+.yellow{background-color: #ffff00;}
+
+
+@media (max-width: 1199px)  {
+    .container {
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -70px 0px;
+    }
+}
+
+@media (max-width: 992px)  {
+    .container {
+        /*background: url("../imgs/milioniare.jpg") no-repeat;*/
+        /*background-position: -145px 0px;*/
+    }
+}
+
+@media (max-width: 991px){
+    .container {
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -145px 0px;
+    }
+}
+@media (max-width: 767px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -50px 0px;
+    }
+}
+
+@media (max-width: 680px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -75px 0px;
+    }
+}
+
+@media (max-width: 630px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -97px 0px;
+    }
+}
+
+@media (max-width: 570px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -127px 0px;
+    }
+}
+
+@media (max-width: 530px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -146px 0px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container{
+        background: url("../imgs/milioniare.jpg") no-repeat;
+        background-position: -175px 0px;
+    }
+}
